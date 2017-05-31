@@ -17,6 +17,7 @@ services:
                           && composer install --prefer-dist --no-interaction
                           && echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/xdebug.ini
                           && app/console doctrine:schema:update --force
+                          && app/console doctrine:fixtures:load --no-interaction
                           && service apache2 start
                           && chmod 777 -Rf app/cache/* app/logs web/uploads
                           && tail -f /dev/null"

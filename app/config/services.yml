@@ -11,3 +11,7 @@ services:
     appbundle.order.handler:
         class: AppBundle\Service\OrdersXmlHandler
         arguments: ['@doctrine.orm.entity_manager']
+
+    appbundle.jwt_token_authenticator:
+        class: AppBundle\Security\JwtTokenAuthenticator
+        autowire: true
