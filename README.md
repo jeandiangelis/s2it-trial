@@ -13,7 +13,7 @@ A Symfony project created on May 31, 2017, 2:47 pm.
 * Just hit `dev.s2it-trial.com/app_dev.php` on your favorite browser!
 
 # Authentication
-### To authenticate on the API you'll need to generate SSH KEYS as it is described on LexikJWTAuthenticationBundle - https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started
+### To authenticate and be able to access the API you'll need to generate SSH KEYS as it is described on LexikJWTAuthenticationBundle - https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started
 [LexikJWTAuthenticationBundle documentation](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started ).
 
 Generate the SSH keys :
@@ -29,19 +29,21 @@ PS: Note that I've changed the dir to be "app" instead of "var" because of our S
 Configuration
 -------------
 
-Configure the SSH keys path in your `config.yml` :
+Change your `parameters.yml` to have the correct password under `jwt_key_pass_phrase`
 
 ``` yaml
-lexik_jwt_authentication:
-    private_key_path: '%jwt_private_key_path%'
-    public_key_path:  '%jwt_public_key_path%'
-    pass_phrase:      '%jwt_key_pass_phrase%'
-    token_ttl:        '%jwt_token_ttl%'
+parameters:
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    jwt_key_pass_phrase: YOUR_PASSWORD #This should be the password you've used to generate the SSH keys.
+
 ```
 
-#### Remember to change your password on paramaters.yml file under "jwt_key_pass_phrase" to match the one you just used to create your SSH keys.
-
-#### When send a post request to /api/auth with a json request body containing e-mail and password as follows:
+Authenticating
+--------------
+#### Send a post request to /api/auth with a json request body containing e-mail and password as follows:
  `{"email": "s2it@mail.com", "password": "abc123!"}`
  
 #### You'll get a token. With this token you can access the api routes (send it on the Authorization header with the following format: Authorization: Bearer tokenstring)
