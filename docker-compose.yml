@@ -18,7 +18,7 @@ services:
                           && composer install --prefer-dist --no-interaction
                           && echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/xdebug.ini
                           && service apache2 start
-                          && chmod 777 -Rf app/cache/dev
+                          && chmod 777 -Rf app/cache/* app/logs/*
                           && tail -f /dev/null"
 
     mysql:
