@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+    s2it-main:
+        build: ./docker
+        environment:
+            XDEBUG_CONFIG: "remote_host=${XDEBUG_REMOTE_HOST}"
+        ports:
+            - 80:80
+        volumes:
+            - ./:/var/www/s2it-trial
+        links:
+            - mysql
+            - redis_cache
+        extra_hosts:
+            - dev.s2it-trial.com:127.0.0.1
+#        command: bash -c "export COMPOSER_PROCESS_TIMEOUT=900
+#                          && export COMPOSER_ALLOW_XDEBUG=1
+#                          && php composer.phar install --prefer-dist --no-interaction
+#                          && echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/xdebug.ini
+#                          && service apache2 start
+#                          && chmod 777 -Rf var/"
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: s2it
+            MYSQL_USER: jean
+            MYSQL_PASSWORD: 123
+            MYSQL_ROOT_PASSWORD: 123!
+        ports:
+            - 3306:3306
+
+    redis_cache:
+        image: redis
