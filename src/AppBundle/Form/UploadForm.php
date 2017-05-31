@@ -27,7 +27,7 @@ class UploadForm extends AbstractType
                 'label' => 'Ship Order Upload',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('process', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
     }
