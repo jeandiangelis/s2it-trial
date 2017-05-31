@@ -42,6 +42,15 @@ class DefaultController extends Controller
                 $ordersFileName
             );
 
+            $this
+                ->get('appbundle.people.handler')
+                ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $peopleFileName)
+            ;
+
+            $this
+                ->get('appbundle.order.handler')
+                ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $ordersFileName)
+            ;
             //@todo add success message to flashbag
         }
 

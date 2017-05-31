@@ -4,6 +4,10 @@ parameters:
     #parameter_name: value
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    appbundle.people.handler:
+        class: AppBundle\Service\PeopleXmlHandler
+        arguments: ['@doctrine.orm.entity_manager', '@serializer']
+
+    appbundle.order.handler:
+        class: AppBundle\Service\OrdersXmlHandler
+        arguments: ['@doctrine.orm.entity_manager', '@serializer']
