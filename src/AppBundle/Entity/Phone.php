@@ -37,6 +37,15 @@ class Phone
     private $person;
 
     /**
+     * Phone constructor.
+     * @param string $phone
+     */
+    public function __construct($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

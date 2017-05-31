@@ -5,8 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Form\UploadForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 class DefaultController extends Controller
 {
@@ -42,16 +44,23 @@ class DefaultController extends Controller
                 $ordersFileName
             );
 
-            $this
-                ->get('appbundle.people.handler')
-                ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $peopleFileName)
-            ;
+            try {
+                $this
+                    ->get('appbundle.people.handler')
+                    ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $peopleFileName);
 
-            $this
-                ->get('appbundle.order.handler')
-                ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $ordersFileName)
-            ;
-            //@todo add success message to flashbag
+                $this
+                    ->get('appbundle.order.handler')
+                    ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $ordersFileName);
+
+                $message = 'XML successfully processed';
+            } catch (FileNotFoundException $exception) {
+                $message = 'File not found';
+            } catch (Exception $exception) {
+                $message = 'Something went wrong';
+            } finally {
+                //@todo add message to flashbag
+            }
         }
 
         return $this->render('default/index.html.twig', [

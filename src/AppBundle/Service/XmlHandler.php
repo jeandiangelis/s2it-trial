@@ -32,7 +32,15 @@ abstract class XmlHandler
 
     /**
      * @param string $filePath
-     * @return bool
      */
     abstract function handle(string $filePath);
+
+    /**
+     * @param string $xml
+     * @return array
+     */
+    protected function xmlToArrayRecursive(string $xml)
+    {
+        return json_decode(json_encode((array) simplexml_load_string($xml)), 1);
+    }
 }
