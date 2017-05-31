@@ -17,6 +17,8 @@ services:
         command: bash -c "export COMPOSER_ALLOW_XDEBUG=1
                           && php composer.phar install --prefer-dist --no-interaction
                           && echo "xdebug.remote_connect_back=On" >> /usr/local/etc/php/conf.d/xdebug.ini
+                          && service apache2 start
+                          && chmod 777 -Rf app/cache/dev
                           && tail -f /dev/null"
 
     mysql:
