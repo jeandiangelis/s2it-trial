@@ -30,7 +30,6 @@ class DefaultController extends Controller
             /** @var UploadedFile $ordersXml */
             $ordersXml = $files['order'];
 
-            //@todo move to a proper place
             $peopleFileName = md5(uniqid()) . '.' . $peopleXml->guessExtension();
             $ordersFileName = md5(uniqid()) . '.' . $peopleXml->guessExtension();
 
@@ -53,13 +52,13 @@ class DefaultController extends Controller
                     ->get('appbundle.order.handler')
                     ->handle($this->getParameter('uploads_dir') . DIRECTORY_SEPARATOR . $ordersFileName);
 
-                $message = 'XML successfully processed';
+                $message = ['type' => 'success', 'content' => 'XML successfully processed'];
             } catch (FileNotFoundException $exception) {
-                $message = 'File not found';
+                $message = ['type' => 'danger', 'content' => 'File not found'];
             } catch (Exception $exception) {
-                $message = 'Something went wrong';
+                $message = ['type' => 'danger', 'content', 'Something went wrong'];
             } finally {
-                //@todo add message to flashbag
+                $this->get('session')->getFlashBag()->add($message['type'], $message['content']);
             }
         }
 

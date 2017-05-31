@@ -13,13 +13,18 @@
                     <a class="nav-link" href="{{ path('homepage') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('homepage') }}">Api Docs</a>
+                    <a class="nav-link" href="{{ path('nelmio_api_doc_index') }}">Api Docs</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <div class="jumbotron">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <span class="text text-{{ type }}">{{ message }}</span>
+                {% endfor %}
+            {% endfor %}
             <h1 class="text-center">Upload your XML</h1>
             {{ form_start(form) }}
                 <div class="form-group">

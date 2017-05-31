@@ -20,30 +20,29 @@ final class PeopleXmlHandler extends XmlHandler
         if (file_exists($filePath)) {
             $peopleXml = file_get_contents($filePath);
 
-            $content = $this->xmlToArrayRecursive($peopleXml);
+            $content = current($this->xmlToArray($peopleXml));
 
-            foreach ($content['person'] as $person) {
-                /** @var Person $personEntity */
-                $personEntity = $this->serializer->deserialize(json_encode($person), Person::class, 'json');
+            foreach ($content as $person) {
+                $personEntity = new Person($person->personid, $person->personname);
 
                 $phones = new ArrayCollection();
 
-                if (is_array($person['phones']['phone'])) {
-                    foreach ($person['phones']['phone'] as $phone) {
-                        $phones->add(new Phone($phone));
+                if (count($person->phones->phone) > 1) {
+                    foreach ($person->phones->phone as $phone) {
+                        $phones->add(new Phone((string) $phone));
                     }
                 } else {
-                    $phones->add(new Phone($person['phones']['phone']));
+                    $phones->add(new Phone((string) $person->phones->phone));
                 }
 
                 $personEntity->setPhones($phones);
 
-                $this->entityManager->persist($personEntity);
+                $this->entityManager->merge($personEntity);
             }
 
             $this->entityManager->flush();
+        } else {
+            throw new FileNotFoundException();
         }
-
-        throw new FileNotFoundException();
     }
 }

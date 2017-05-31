@@ -6,8 +6,8 @@ parameters:
 services:
     appbundle.people.handler:
         class: AppBundle\Service\PeopleXmlHandler
-        arguments: ['@doctrine.orm.entity_manager', '@jms_serializer']
+        arguments: ['@doctrine.orm.entity_manager']
 
     appbundle.order.handler:
         class: AppBundle\Service\OrdersXmlHandler
-        arguments: ['@doctrine.orm.entity_manager', '@jms_serializer']
+        arguments: ['@doctrine.orm.entity_manager']

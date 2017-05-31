@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Person;
 use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -11,6 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PersonController extends FOSRestController
 {
+    /**
+     * Returns a collection of people not paginated
+     *
+     * @return Response
+     * @ApiDoc(
+     *     resource=true,
+     *     description="Returns a collection of people"
+     * )
+     */
     public function getPeopleAction()
     {
         $people = $this
@@ -31,6 +41,15 @@ class PersonController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * Returns a person data, if the person id is not found a Not Found response is raised
+     *
+     * @return Response
+     * @ApiDoc(
+     *     resource=true,
+     *     description="Returns a person data"
+     * )
+     */
     public function getPersonAction($id)
     {
         $person = $this

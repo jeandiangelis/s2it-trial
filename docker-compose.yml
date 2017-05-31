@@ -11,7 +11,6 @@ services:
             - ./:/var/www/s2it-trial
         links:
             - mysql
-            - redis_cache
         extra_hosts:
             - dev.s2it-trial.com:127.0.0.1
         command: bash -c "export COMPOSER_ALLOW_XDEBUG=1
@@ -31,6 +30,3 @@ services:
             MYSQL_ROOT_PASSWORD: 123!
         ports:
             - 3306:3306
-
-    redis_cache:
-        image: redis

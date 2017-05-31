@@ -33,17 +33,18 @@ class Person
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade={"persist"})
-     * @Serializer\Exclude()
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade={"merge"})
      */
     private $phones;
 
     /**
      * Person constructor.
      */
-    public function __construct()
+    public function __construct($personid, $personname)
     {
         $this->phones = new ArrayCollection();
+        $this->personid = $personid;
+        $this->personname = $personname;
     }
 
     /**

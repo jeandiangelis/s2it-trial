@@ -70,3 +70,11 @@ swiftmailer:
 fos_rest:
     routing_loader:
         default_format: json
+
+nelmio_api_doc: ~
+
+lexik_jwt_authentication:
+    private_key_path: "%kernel.root_dir%/../app/jwt/private.pem"
+    public_key_path:  "%kernel.root_dir%/../app/jwt/public.pem"
+    pass_phrase:      "%jwt_key_pass_phrase%"
+    token_ttl:        3600
