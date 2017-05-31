@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PersonController extends FOSRestController
 {
-    public function getPersonAction()
+    public function getPeopleAction()
     {
         $people = $this
             ->getDoctrine()
@@ -26,6 +26,30 @@ class PersonController extends FOSRestController
             ->view($people, Response::HTTP_OK)
             ->setTemplate("AppBundle:People:people.twig.html")
             ->setTemplateVar('people')
+        ;
+
+        return $this->handleView($view);
+    }
+
+    public function getPersonAction($id)
+    {
+        $person = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository(Person::class)
+            ->find($id)
+        ;
+
+        if (!$person) {
+            $this->createNotFoundException('User not found');
+        }
+
+        $person = ['person' => $person];
+
+        $view = $this
+            ->view($person, Response::HTTP_OK)
+            ->setTemplate("AppBundle:People:person.twig.html")
+            ->setTemplateVar('person')
         ;
 
         return $this->handleView($view);
