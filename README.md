@@ -7,13 +7,13 @@ A Symfony project created on May 31, 2017, 2:47 pm.
 * Docker and Docker-compose
 
 # Install
-* Clone the repository `git clone git clone git@github.com:jeandiangelis/s2it-trial.git`
+* Clone the repository `git clone git@github.com:jeandiangelis/s2it-trial.git`
 * Add `127.0.0.1 dev.s2it-trial.com` to your hosts file (in Ubuntu it is in /etc/hosts) 
 * Run `docker-compose up --build` and wait until it finishes
 * Just hit `dev.s2it-trial.com/app_dev.php` on your favorite browser!
 
 # Authentication
-### To authenticate and be able to access the API you'll need to generate SSH KEYS as it is described on LexikJWTAuthenticationBundle - https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started
+### To authenticate and be able to access the API you'll need to generate SSH KEYS as it is described on
 [LexikJWTAuthenticationBundle documentation](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#getting-started ).
 
 Generate the SSH keys :
