@@ -9,7 +9,7 @@ A Symfony project created on May 31, 2017, 2:47 pm.
 # Install
 * Clone the repository `git clone git clone git@github.com:jeandiangelis/s2it-trial.git`
 * Add `127.0.0.1 dev.s2it-trial.com` to your hosts file (in Ubuntu it is in /etc/hosts) 
-* Run `docker-compose up --build`
+* Run `docker-compose up --build` and wait until it finishes
 * Just hit `dev.s2it-trial.com/app_dev.php` on your favorite browser!
 
 # Authentication
