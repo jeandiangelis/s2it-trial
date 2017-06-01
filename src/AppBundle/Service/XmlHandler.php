@@ -26,13 +26,4 @@ abstract class XmlHandler
      * @param string $filePath
      */
     abstract function handle(string $filePath);
-
-    /**
-     * @param string $xml
-     * @return array
-     */
-    protected function xmlToArray(string $xml)
-    {
-        return (array) simplexml_load_string($xml);
-    }
 }

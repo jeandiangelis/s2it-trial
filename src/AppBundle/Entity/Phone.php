@@ -28,9 +28,7 @@ class Phone
      */
     private $phone;
 
-
     /**
-     * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="phones")
      * @ORM\JoinColumn(name="personid", referencedColumnName="personid")
      */

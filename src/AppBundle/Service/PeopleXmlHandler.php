@@ -20,9 +20,9 @@ final class PeopleXmlHandler extends XmlHandler
         if (file_exists($filePath)) {
             $peopleXml = file_get_contents($filePath);
 
-            $content = current($this->xmlToArray($peopleXml));
+            $peopleXml = simplexml_load_string($peopleXml);
 
-            foreach ($content as $person) {
+            foreach ($peopleXml->person as $person) {
                 $personEntity = new Person($person->personid, $person->personname);
 
                 $phones = new ArrayCollection();
@@ -42,7 +42,7 @@ final class PeopleXmlHandler extends XmlHandler
 
             $this->entityManager->flush();
         } else {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException('File not found');
         }
     }
 }

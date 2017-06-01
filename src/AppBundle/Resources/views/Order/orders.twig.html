@@ -1,0 +1,6 @@
+{% for shiporder in shiporders %}
+    <li>
+        Order ID: {{ shiporder.orderid }}
+        Order Person: {{ shiporder.orderperson.personid }}
+    </li>
+{% endfor %}

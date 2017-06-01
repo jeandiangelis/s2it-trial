@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Person;
+use AppBundle\Entity\Phone;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +70,50 @@ class PersonController extends FOSRestController
             ->view($person, Response::HTTP_OK)
             ->setTemplate("AppBundle:People:person.twig.html")
             ->setTemplateVar('person')
+        ;
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * Returns all phones of a person based on this person ID
+     *
+     * @ApiDoc(
+     *     resource=true,
+     *     description="Returns all phones of a person"
+     * )
+     * @param $id
+     * @return Response
+     */
+    public function getPersonPhonesAction($id)
+    {
+        $manager = $this
+            ->getDoctrine()
+            ->getManager()
+        ;
+
+        $person = $manager
+            ->getRepository(Person::class)
+            ->find($id)
+        ;
+
+        if (!$person) {
+            $this->createNotFoundException('User not found');
+        }
+
+        $phones = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository(Phone::class)
+            ->findBy(['person' => $person])
+        ;
+
+        $phones = ['phones' => $phones];
+
+        $view = $this
+            ->view($phones, Response::HTTP_OK)
+            ->setTemplate("AppBundle:People:phones.twig.html")
+            ->setTemplateVar('$phones')
         ;
 
         return $this->handleView($view);
